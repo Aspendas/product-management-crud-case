@@ -15,8 +15,11 @@ function App() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setProducts(data);
-        console.log("Fetched Products:", data);
+        const sortedData = data.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setProducts(sortedData);
+        console.log("Fetched Products:", sortedData);
       })
       .catch((error) => console.error("Error fetching products:", error));
   };
