@@ -20,6 +20,18 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
+  const handleEditClick = () => {};
+
+  const handleDeleteClick = (id) => {
+    fetch(`${api}/products/${id}`, {
+      method: "DELETE",
+    })
+      .then(() => {
+        fetchProducts();
+      })
+      .catch((error) => console.error("Error deleting product:", error));
+  };
+
   return (
     <table className="product-table">
       <thead>
@@ -44,7 +56,9 @@ const ProductList = () => {
             </td>
             <td className="span-1">
               <button>Edit</button>
-              <button>Delete</button>
+              <button onClick={() => handleDeleteClick(product.id)}>
+                Delete
+              </button>
             </td>
           </tr>
         ))}
