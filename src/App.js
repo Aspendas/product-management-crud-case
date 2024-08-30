@@ -1,32 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import ProductList from "./components/product-list/ProductList";
 import Modal from "./components/modal/Modal";
+import ProductForm from "./components/product-form/ProductForm";
+import { api } from "./utils/constants";
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(true);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [products, setProducts] = useState([]);
 
-  const openModal = (product = null) => {
-    setSelectedProduct(product);
+  const fetchProducts = () => {
+    fetch(api + "/products", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setProducts(data);
+        console.log("Fetched Products:", data);
+      })
+      .catch((error) => console.error("Error fetching products:", error));
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const openModal = () => {
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setSelectedProduct(null);
   };
 
   const handleSave = () => {
     closeModal();
+    fetchProducts();
   };
+
   return (
     <div className="app-container">
       <h1>Ürün Listesi</h1>
-      <ProductList />
+      <button onClick={openModal}>Ürün Ekle</button>
+      <ProductList products={products} fetchProducts={fetchProducts} />
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div>
-          <h1>Lorem ipsum dolor amet.</h1>
+          <ProductForm onSave={handleSave} />
         </div>
       </Modal>
     </div>
