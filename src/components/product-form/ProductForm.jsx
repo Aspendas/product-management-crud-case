@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { api } from "../../utils/constants";
+import "./product-form.css";
 
 function ProductForm({ existingProduct, onSave }) {
   const [productName, setProductName] = useState("");
@@ -57,43 +58,48 @@ function ProductForm({ existingProduct, onSave }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Ürün Adı</label>
+    <form className="product-form" onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label className="form-label">Ürün Adı</label>
         <input
           type="text"
+          className="form-input"
           value={productName}
           onChange={(e) => setProductName(e.target.value)}
           required
         />
       </div>
-      <div>
-        <label>Açıklama</label>
+      <div className="form-group">
+        <label className="form-label">Açıklama</label>
         <textarea
+          className="form-textarea"
           value={productDescription}
           onChange={(e) => setProductDescription(e.target.value)}
           required
         />
       </div>
-      <div>
-        <label>Fiyat</label>
+      <div className="form-group">
+        <label className="form-label">Fiyat</label>
         <input
           type="number"
+          className="form-input"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
+          required
         />
       </div>
-      <div>
-        <label>
+      <div className="form-group">
+        <label className="form-label">
           Stok Durumu
           <input
             type="checkbox"
+            className="form-checkbox"
             checked={inStock}
             onChange={(e) => setInStock(e.target.checked)}
           />
         </label>
       </div>
-      <button type="submit">
+      <button className="submit-button" type="submit">
         {existingProduct ? "Değişiklikleri Kaydet" : "Ürünü Ekle"}
       </button>
     </form>

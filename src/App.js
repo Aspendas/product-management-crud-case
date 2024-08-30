@@ -41,7 +41,9 @@ function App() {
   return (
     <div className="app-container">
       <h1>Ürün Listesi</h1>
-      <button onClick={openModal}>Ürün Ekle</button>
+      <button className="add-button" onClick={openModal}>
+        Ürün Ekle
+      </button>
       <ProductList products={products} fetchProducts={fetchProducts} />
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div>

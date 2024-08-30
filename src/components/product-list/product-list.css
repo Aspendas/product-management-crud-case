@@ -1,21 +1,37 @@
+.product-container {
+  width: 100%;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
 .product-table {
   width: 100%;
   border-collapse: collapse;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
 }
 
 .product-table th,
 .product-table td {
-  border: 1px solid #ccc;
-  padding: 10px;
+  border: 1px solid #e0e0e0;
+  padding: 12px;
   text-align: left;
 }
 
 .product-table th {
-  background-color: #d3d3d3;
+  background-color: #0069d8;
+  color: #ffffff;
+  font-weight: bold;
 }
 
 .product-table td {
-  background-color: #f0f0f0;
+  background-color: #f9f9f9;
+  color: #333;
+  word-break: break-all;
+}
+
+.product-table tr:nth-child(even) td {
+  background-color: #f2f2f2;
 }
 
 .product-table .span-2 {
@@ -30,8 +46,29 @@
   width: 8.33%; /* 1/12 columns */
 }
 
-button {
-  margin-right: 5px;
-  padding: 5px 10px;
+.icon-button {
+  background: none;
+  margin: 6px;
+  border: none;
   cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.icon-button:hover {
+  opacity: 0.8;
+  transform: scale(1.25);
+}
+
+.icon-button:active {
+  opacity: 0.6;
+  transform: scale(1.15);
+}
+
+.icon-button svg {
+  width: 24px;
+  height: 24px;
 }

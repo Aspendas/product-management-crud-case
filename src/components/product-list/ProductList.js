@@ -3,6 +3,8 @@ import "./product-list.css";
 import Modal from "../modal/Modal";
 import ProductForm from "../product-form/ProductForm";
 import { api } from "../../utils/constants";
+import DeleteIcon from "./DeleteIcon";
+import EditIcon from "./EditIcon";
 
 const ProductList = ({ products, fetchProducts }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,7 +42,7 @@ const ProductList = ({ products, fetchProducts }) => {
   };
 
   return (
-    <div>
+    <div className="product-container">
       <table className="product-table">
         <thead>
           <tr>
@@ -63,9 +65,17 @@ const ProductList = ({ products, fetchProducts }) => {
                 {product.inStock ? "Stokta var" : "Stokta yok"}
               </td>
               <td className="span-1">
-                <button onClick={() => handleEditClick(product)}>Edit</button>
-                <button onClick={() => handleDeleteClick(product.id)}>
-                  Delete
+                <button
+                  className="icon-button"
+                  onClick={() => handleEditClick(product)}
+                >
+                  <EditIcon />
+                </button>
+                <button
+                  className="icon-button"
+                  onClick={() => handleDeleteClick(product.id)}
+                >
+                  <DeleteIcon />
                 </button>
               </td>
             </tr>
