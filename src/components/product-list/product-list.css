@@ -1,0 +1,37 @@
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-table th,
+.product-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.product-table th {
+  background-color: #d3d3d3;
+}
+
+.product-table td {
+  background-color: #f0f0f0;
+}
+
+.product-table .span-2 {
+  width: 16.66%; /* 2/12 columns */
+}
+
+.product-table .span-7 {
+  width: 58.33%; /* 7/12 columns */
+}
+
+.product-table .span-1 {
+  width: 8.33%; /* 1/12 columns */
+}
+
+button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
