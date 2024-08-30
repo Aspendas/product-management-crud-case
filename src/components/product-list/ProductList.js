@@ -8,21 +8,32 @@ import EditIcon from "./EditIcon";
 
 const ProductList = ({ products, fetchProducts }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteConfirmModalOpen, setIsDeleteConfirmModalOpen] =
+    useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [productToDelete, setProductToDelete] = useState(null);
 
   // Event handlers
   const handleEditClick = (product) => {
     openModal(product);
   };
 
-  const handleDeleteClick = (id) => {
-    fetch(`${api}/products/${id}`, {
-      method: "DELETE",
-    })
-      .then(() => {
-        fetchProducts();
+  const handleDeleteClick = (product) => {
+    setProductToDelete(product);
+    setIsDeleteConfirmModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (productToDelete) {
+      fetch(`${api}/products/${productToDelete.id}`, {
+        method: "DELETE",
       })
-      .catch((error) => console.error("Error deleting product:", error));
+        .then(() => {
+          fetchProducts();
+          closeDeleteConfirmModal();
+        })
+        .catch((error) => console.error("Error deleting product:", error));
+    }
   };
 
   // Modal functions
@@ -39,6 +50,11 @@ const ProductList = ({ products, fetchProducts }) => {
   const handleSave = () => {
     closeModal();
     fetchProducts();
+  };
+
+  const closeDeleteConfirmModal = () => {
+    setIsDeleteConfirmModalOpen(false);
+    setProductToDelete(null);
   };
 
   return (
@@ -73,7 +89,7 @@ const ProductList = ({ products, fetchProducts }) => {
                 </button>
                 <button
                   className="icon-button"
-                  onClick={() => handleDeleteClick(product.id)}
+                  onClick={() => handleDeleteClick(product)}
                 >
                   <DeleteIcon />
                 </button>
@@ -85,6 +101,20 @@ const ProductList = ({ products, fetchProducts }) => {
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div>
           <ProductForm existingProduct={selectedProduct} onSave={handleSave} />
+        </div>
+      </Modal>
+      <Modal
+        isOpen={isDeleteConfirmModalOpen}
+        onClose={closeDeleteConfirmModal}
+      >
+        <div>
+          <p>Are you sure you want to delete this product?</p>
+          <button className="delete-button" onClick={confirmDelete}>
+            Yes
+          </button>
+          <button className="delete-button" onClick={closeDeleteConfirmModal}>
+            No
+          </button>
         </div>
       </Modal>
     </div>
